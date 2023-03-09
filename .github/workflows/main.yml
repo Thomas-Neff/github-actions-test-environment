@@ -1,7 +1,7 @@
 name: Terraform Apply
 
 on:
-  pull_request_review:
+  pull_request:
     #branches :
     #    - 'main'
     #types: [submitted]
