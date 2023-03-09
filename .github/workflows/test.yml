@@ -1,15 +1,26 @@
-name: Test Workflow
+name: Test
 
 on:
-  pull_request_review:
-    branches :
-        - 'main'
+  pull_request:
+    paths:
+      - "./**"
+  workflow_dispatch:
 
-- name: Update Pull Request
-      uses: actions/github-script@v6
-      if: github.event.review.state == 'approved'
-      with:
-        script: |
-          github.rest.issues.createComment({
-            text: 'Trying out GitHub actions!'
-          })
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Update Pull Request
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          script: console.log("Trying GitHub actions!")
