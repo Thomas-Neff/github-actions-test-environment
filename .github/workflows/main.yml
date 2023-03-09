@@ -1,22 +1,29 @@
-name: Test2
+name: Terraform Apply
 
 on:
-  pull_request:
-    branches:
-      - main
+  pull_request_review:
+    #branches :
+    #    - 'main'
+    #types: [submitted]
 
 jobs:
-  comment:
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Update Pull Request
         uses: actions/github-script@v6
+        #if: github.event.review.state == 'approved'
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 GitHub actions is fun!'
+              text: 'Trying out GitHub actions!'
             })
