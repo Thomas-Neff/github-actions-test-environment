@@ -6,6 +6,10 @@ on:
     #    - 'main'
     #types: [submitted]
 
+defaults:
+  run:
+    working-directory: ./
+
 permissions:
   contents: "read"
   id-token: "write"
