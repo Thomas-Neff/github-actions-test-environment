@@ -1,0 +1,16 @@
+name: Test Workflow
+
+on:
+  pull_request_review:
+    branches :
+        - 'main'
+
+
+- name: Update Pull Request
+      uses: actions/github-script@v6
+      if: github.event.review.state == 'approved'
+      with:
+        script: |
+          github.rest.issues.createComment({
+            text: 'Trying out GitHub actions!'
+          })
