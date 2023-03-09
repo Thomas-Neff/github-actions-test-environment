@@ -6,6 +6,11 @@ on:
     #    - 'main'
     #types: [submitted]
 
+permissions:
+  contents: "read"
+  id-token: "write"
+  issues: "write" #__This fixed the HttpError: Resource not accessible by integration
+
 jobs:
   terraform:
     name: Terraform
